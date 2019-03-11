@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 // classe Calculator_Frame que herda de JFrame
 public final class Calculator_Frame extends JFrame{
 	
-	int numberOne, numberTwo;	// números renponsáveis por armazenar os 
+	double numberOne, numberTwo;	// números renponsáveis por armazenar os 
 								// números pressionados na calculadora
 	String lastOperator;	// ultimo operador pressionado
 	
@@ -181,13 +181,13 @@ public final class Calculator_Frame extends JFrame{
 	
 	public void setListeners() {
 		CalculatorListener cl = new CalculatorListener();	// objeto para configuração dos ouvintes
-		JButton btnVetOperators[] = {more, less, aster, bar, percent};	// vetor de operadores
+		JButton btnVetOperators[] = {more, less, aster, bar, percent, square};	// vetor de operadores
 		JButton btnVetNumbers[] = {one, two, three, four, five,	// vetor de números
 									six, seven, eight, nine, zero};
 		
 		
 		try {	// bloco try para tratar exceções
-			c.addActionListener(new ActionListener() {	// adiciona um ouvinte para as ações de 'c'
+			ActionListener acResetDefault = new ActionListener() {	// ouvinte default
 				// quando ativo, este reseta o TextArea da calculadora e a calculadora
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,10 @@ public final class Calculator_Frame extends JFrame{
 					lastOperator = null;
 					txt.setText("0");
 				}
-			});
+			};
+			c.addActionListener(acResetDefault);	// adiciona 'acResetDefault' para 'c'
+			ce.addActionListener(acResetDefault);	// adiciona 'acResetDefault' para 'ce'
+			
 			for(JButton operator: btnVetOperators) {	// laço de repetição para configurar todos os operadores
 				cl.setCalculatorOperationListener(operator);	// método para configurar o operador passado
 																// por parâmetro
@@ -226,7 +229,8 @@ public final class Calculator_Frame extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					numberOne = Integer.parseInt(txt.getText());
 					lastOperator = operator.getText();
-					txt.setText(txt.getText() + " " + operator.getText() + " ");
+					txt.setText("0");
+					// código: txt.setText(txt.getText() + " " + operator.getText() + " ");
 				}
 			});
 		}
@@ -243,24 +247,33 @@ public final class Calculator_Frame extends JFrame{
 				// caso nenhuma dessas operações existam, este retorna
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					String numVet[] = new String[2];
-					numVet = txt.getText().split(lastOperator);
+					// código: String numVet[] = new String[2];
+					// código: numVet = txt.getText().split(lastOperator);
 					
-					numberTwo = Integer.parseInt(numVet[1].toString());
+					// código: numberTwo = Integer.parseInt(numVet[1].toString());
+					
 					if(lastOperator.equals("+")) {
-						txt.setText(Integer.toString(numberOne + numberTwo));
+						numberTwo = Double.parseDouble(txt.getText());
+						txt.setText(Double.toString(numberOne + numberTwo));
 					}
 					else if(lastOperator.equals("-")) {
-						txt.setText(Integer.toString(numberOne - numberTwo));
+						numberTwo = Double.parseDouble(txt.getText());
+						txt.setText(Double.toString(numberOne - numberTwo));
 					}
 					else if(lastOperator.equals("*")) {
-						txt.setText(Integer.toString(numberOne * numberTwo));
+						numberTwo = Double.parseDouble(txt.getText());
+						txt.setText(Double.toString(numberOne * numberTwo));
 					}
 					else if(lastOperator.equals("/")) {
-						txt.setText(Integer.toString(numberOne / numberTwo));
+						numberTwo = Double.parseDouble(txt.getText());
+						txt.setText(Double.toString(numberOne / numberTwo));
 					}
 					else if(lastOperator.equals("%")) {
-						txt.setText(Integer.toString(numberOne % numberTwo));
+						numberTwo = Double.parseDouble(txt.getText());
+						txt.setText(Double.toString(numberOne % numberTwo));
+					}
+					else if(lastOperator.equals("SQR")) {
+						txt.setText(Double.toString(Math.sqrt(numberOne)));
 					}
 					else if(lastOperator == null)
 						return;
