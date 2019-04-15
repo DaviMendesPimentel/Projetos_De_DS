@@ -22,7 +22,7 @@ public class Pessoa implements PessoaInterface {
 		if(nome != null && !nome.equals(""))
 			this.nome = nome;
 		
-		else this.nome = "Unknow";	// ou define como 'Unknow' caso não esteja de acordo
+		else this.nome = null;	// ou define como null caso não esteja de acordo
 	}
 
 	@Override // método getNome sobrecarregado
@@ -37,7 +37,7 @@ public class Pessoa implements PessoaInterface {
 		if(rg != null && !rg.equals(""))
 			this.rg = rg;
 		
-		else this.rg = "Unknow";	// ou define como 'Unknow' caso não esteja de acordo
+		else this.rg = null;	// ou define como null caso não esteja de acordo
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Pessoa implements PessoaInterface {
 		if(cpf != null && !cpf.equals(""))
 			this.cpf = cpf;
 		
-		else this.cpf = "Unknow";	// ou define como 'Unknow' caso não esteja de acordo
+		else this.cpf = null;	// ou define como null caso não esteja de acordo
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class Pessoa implements PessoaInterface {
 		if(genero != null && !genero.equals(""))
 			this.genero = genero;
 		
-		else this.genero = "Unknow";	// ou define como 'Unknow' caso não esteja de acordo
+		else this.genero = null;	// ou define como null caso não esteja de acordo
 	}
 
 	@Override

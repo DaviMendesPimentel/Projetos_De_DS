@@ -12,10 +12,15 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.JFormattedTextField;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import ModelCadastro.PessoaFisica;
+
 public class Cadastro extends JFrame{
+	
+	PessoaFisica pessoa;
 	
 	JLabel nomeLabel = new JLabel("Nome: ");
 	JLabel enderecoLabel = new JLabel("Endereço: ");
@@ -64,7 +69,22 @@ public class Cadastro extends JFrame{
 		confirmar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new Cadastro().salvarDados();
+			}
+		});
+		
+		cancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nometxt.setText("");
+				enderecotxt.setText("");
+				cidadetxt.setText("");
+				bairrotxt.setText("");
+				telefonetxt.setText("");
+				rgtxt.setText("");
+				ceptxt.setText("");
+				celulartxt.setText("");
+				cpftxt.setText("");
 			}
 		});
 		
@@ -74,6 +94,20 @@ public class Cadastro extends JFrame{
 		this.setResizable(false); // torna o tamanho da janela inalterável pelo usuário
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE); // configura a ação de 'fechar' da janela
 	}// fim do construtor
+	
+	public void salvarDados() {
+		pessoa.setNome(nometxt.getText());
+		pessoa.setRG(rgtxt.getText());
+		pessoa.setCPF(cpftxt.getText());
+		pessoa.setEndereco(enderecotxt.getText(), 
+					bairrotxt.getText(), cidadetxt.getText(), estados.getSelectedItem().toString(),
+					ceptxt.getText());
+		pessoa.setCelular(celulartxt.getText());
+		pessoa.setTelefone(telefonetxt.getText());
+		pessoa.setGenero(radioGroup.toString());
+		
+		System.out.println(pessoa.toString());
+	}
 	
 	// função responsável por posicionar cada componente no JFrame
 	public void setBoundsComponentsCadastro() {
